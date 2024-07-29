@@ -21,6 +21,9 @@ public class Student {
     @Column(name = "name", nullable = true)
     private String name;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
+
     public Student(String name, Integer id, String email) {
         this.id = id;
         this.email = email;

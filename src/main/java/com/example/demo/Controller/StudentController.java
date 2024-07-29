@@ -2,9 +2,13 @@ package com.example.demo.Controller;
 
 
 import com.example.demo.Model.Student;
+import com.example.demo.Payload.ResponseData;
 import com.example.demo.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,44 +18,40 @@ import java.util.List;
 @RequestMapping()
 public class StudentController {
 
-
     @Autowired
+    @Qualifier("studentServiceImpl")
     private StudentService studentService;
 
     @GetMapping(path="/getStudent")
-    public List<Student> getStudentController(){
+    public ResponseEntity<?> getStudentController(){
         return studentService.getStudentService();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Custom-Header", "foo");
+//
+//        return new ResponseEntity<>(
+//                "Custom header set", headers, HttpStatus.OK);
     }
 
 
     @PostMapping
-    public String postStudentController(@Validated @RequestBody Student student){
-        String text = new String();
-        try{
-            studentService.postStudentService(student);
-            text = "Successfully";
-        }
-        catch (Exception e){
-            text = "Error";
-        }
+    public ResponseEntity<?> postStudentController(@Validated @RequestBody Student student){
 
-        return text;
+        return studentService.postStudentService(student);
+
     }
 
     @DeleteMapping
-    public String deleteStudentController(@RequestParam("id") Integer id){
+    public ResponseEntity<?> deleteStudentController(@RequestParam("id") Integer id){
 
-        studentService.deleteStudentService(id);
+        return studentService.deleteStudentService(id);
 
-        return "Successfully";
     }
-//
-//    @PutMapping
-//    public String putStudentController(@RequestBody Student student){
-//        studentService.putStudentService(student);
-//
-//        return "Succeccfully";
-//    }
+
+    @PutMapping
+    public ResponseEntity<?> putStudentController(@RequestBody Student student){
+        return studentService.putStudentService(student);
+
+    }
 
 
 }
