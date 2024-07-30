@@ -21,6 +21,12 @@ public class Student {
     @Column(name = "name", nullable = true)
     private String name;
 
+    @Column(name = "username", nullable = true)
+    private String username;
+
+    @Column(name = "password", nullable = true)
+    private String password;
+
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
 

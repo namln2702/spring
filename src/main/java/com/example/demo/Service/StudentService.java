@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 
+import com.example.demo.DTO.Request.StudentRequest;
 import com.example.demo.Model.Student;
 import com.example.demo.Payload.ResponseData;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,9 @@ import java.util.List;
 public interface StudentService {
     public ResponseEntity<?> getStudentService();
 
-    public ResponseEntity<?> postStudentService(Student student);
+    public ResponseEntity<?> postStudentService(StudentRequest studentRequest);
 
-    public ResponseEntity<?> deleteStudentService(Integer id);
-    public ResponseEntity<?> putStudentService(Student student);
+    public ResponseEntity<?> deleteStudentService(String username);
+    public ResponseEntity<?> putStudentService(StudentRequest studentRequest);
 
 }

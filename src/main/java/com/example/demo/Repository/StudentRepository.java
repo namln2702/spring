@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-    @Query("select u from Student u where u.name = ?1")
-    Optional<Student> findByName(String name);
+    @Query("select u from Student u where u.username = ?1")
+    Optional<Student> findByUsername(String name);
 }

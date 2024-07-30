@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 
+import com.example.demo.DTO.Request.StudentRequest;
 import com.example.demo.Model.Student;
 import com.example.demo.Payload.ResponseData;
 import com.example.demo.Service.StudentService;
@@ -22,7 +23,7 @@ public class StudentController {
     @Qualifier("studentServiceImpl")
     private StudentService studentService;
 
-    @GetMapping(path="/getStudent")
+    @GetMapping(path="/students")
     public ResponseEntity<?> getStudentController(){
         return studentService.getStudentService();
 //        HttpHeaders headers = new HttpHeaders();
@@ -33,23 +34,23 @@ public class StudentController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<?> postStudentController(@Validated @RequestBody Student student){
+    @PostMapping(path="/student")
+    public ResponseEntity<?> postStudentController(@Validated @RequestBody StudentRequest studentRequest){
 
-        return studentService.postStudentService(student);
-
-    }
-
-    @DeleteMapping
-    public ResponseEntity<?> deleteStudentController(@RequestParam("id") Integer id){
-
-        return studentService.deleteStudentService(id);
+        return studentService.postStudentService(studentRequest);
 
     }
 
-    @PutMapping
-    public ResponseEntity<?> putStudentController(@RequestBody Student student){
-        return studentService.putStudentService(student);
+    @DeleteMapping(path="/student")
+    public ResponseEntity<?> deleteStudentController(@RequestParam String username){
+
+        return studentService.deleteStudentService(username);
+
+    }
+
+    @PutMapping(path="/student")
+    public ResponseEntity<?> putStudentController(@RequestBody StudentRequest studentRequest){
+        return studentService.putStudentService(studentRequest);
 
     }
 
