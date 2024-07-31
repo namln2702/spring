@@ -1,11 +1,15 @@
 package com.example.demo.service.implement;
 
+import ch.qos.logback.core.spi.ErrorCodes;
 import com.example.demo.DTO.request.AuthenticationRequest;
+import com.example.demo.DTO.response.AuthenticationResponse;
 import com.example.demo.Model.Student;
+import com.example.demo.Payload.ResponseData;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,15 +53,18 @@ public class AuthenticationServiceImp implements AuthenticationService {
 //    }
 
     @Override
-    public boolean authentication (AuthenticationRequest request){
+    public AuthenticationResponse authentication (AuthenticationRequest request){
         Optional<Student> student = studentRepository.findByUsername(request.getUsername());
-
 
         if(student.isPresent()){
 
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
-            return passwordEncoder.matches(request.getPassword(), student.get().getPassword());
+            boolean authenticated = passwordEncoder.matches(request.getPassword(), student.get().getPassword());
+
+            if (!authenticated) {
+                throw new RuntimeException("User or password not true");
+            }
 
         }
 
