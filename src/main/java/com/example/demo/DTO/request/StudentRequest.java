@@ -1,4 +1,4 @@
-package com.example.demo.DTO.Response;
+package com.example.demo.DTO.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -11,9 +11,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class StudentResponse {
-    String email;
+public class StudentRequest {
     String name;
+    String email;
     String username;
     String password;
 }

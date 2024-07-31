@@ -1,16 +1,8 @@
-package com.example.demo.Service;
+package com.example.demo.service;
 
 
-import com.example.demo.DTO.Request.StudentRequest;
-import com.example.demo.Model.Student;
-import com.example.demo.Payload.ResponseData;
+import com.example.demo.DTO.request.StudentRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 public interface StudentService {

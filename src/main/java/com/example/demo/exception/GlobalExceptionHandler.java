@@ -1,8 +1,7 @@
-package com.example.demo.Exception;
+package com.example.demo.exception;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

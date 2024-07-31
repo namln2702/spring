@@ -1,25 +1,16 @@
-package com.example.demo.Service.Implement;
+package com.example.demo.service.implement;
 
-import ch.qos.logback.core.spi.ErrorCodes;
-import com.example.demo.DTO.Request.AuthenticationRequest;
-import com.example.demo.DTO.Response.AuthenticationResponse;
+import com.example.demo.DTO.request.AuthenticationRequest;
 import com.example.demo.Model.Student;
-import com.example.demo.Repository.StudentRepository;
-import com.example.demo.Service.AuthenticationService;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContextException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Optional;
-
-import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 
 @RequiredArgsConstructor
@@ -69,7 +60,6 @@ public class AuthenticationServiceImp implements AuthenticationService {
             return passwordEncoder.matches(request.getPassword(), student.get().getPassword());
 
         }
-
 
         return false;
 

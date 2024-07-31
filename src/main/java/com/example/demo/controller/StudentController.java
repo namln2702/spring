@@ -1,19 +1,14 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 
-import com.example.demo.DTO.Request.StudentRequest;
-import com.example.demo.Model.Student;
-import com.example.demo.Payload.ResponseData;
-import com.example.demo.Service.StudentService;
+
+import com.example.demo.DTO.request.StudentRequest;
+import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping()
@@ -26,11 +21,7 @@ public class StudentController {
     @GetMapping(path="/students")
     public ResponseEntity<?> getStudentController(){
         return studentService.getStudentService();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Custom-Header", "foo");
-//
-//        return new ResponseEntity<>(
-//                "Custom header set", headers, HttpStatus.OK);
+
     }
 
 

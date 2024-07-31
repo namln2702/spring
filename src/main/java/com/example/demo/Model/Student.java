@@ -1,12 +1,16 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
 @Entity
 @Table(name = "student")
 public class Student {
@@ -30,13 +34,4 @@ public class Student {
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
 
-    public Student(String name, Integer id, String email) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-    }
-
-    public Student() {
-
-    }
 }
