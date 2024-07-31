@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.DTO.request.AuthenticationRequest;
+import com.example.demo.DTO.request.IntrospectRequest;
+import com.example.demo.DTO.response.AuthenticationResponse;
+import com.example.demo.DTO.response.IntrospectResponse;
 import com.example.demo.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,9 +21,14 @@ public class AuthenticationController {
     @Qualifier("authenticationServiceImp")
     AuthenticationService authenticationService;
 
-    @GetMapping
-    public Boolean check(@RequestBody AuthenticationRequest authenticationRequest){
-       return authenticationService.authentication(authenticationRequest);
+    @GetMapping(path = "/createToken")
+    public AuthenticationResponse authenticationResponse(@RequestBody AuthenticationRequest authenticationRequest){
+       return authenticationService.createToken(authenticationRequest);
+    }
+
+    @GetMapping(path  ="/checkToken")
+    public IntrospectResponse introspectResponse(@RequestBody IntrospectRequest introspectRequest){
+        return authenticationService.checkToken(introspectRequest);
     }
 
 }
