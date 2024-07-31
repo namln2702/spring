@@ -1,8 +1,8 @@
-package com.example.demo.Mapper.MapperImp;
+package com.example.demo.mapper.mapperImp;
 
-import com.example.demo.DTO.Request.StudentRequest;
-import com.example.demo.Mapper.StudentMapper;
-import com.example.demo.Model.Student;
+import com.example.demo.dto.Request.StudentRequest;
+import com.example.demo.mapper.StudentMapper;
+import com.example.demo.model.Student;
 import org.springframework.stereotype.Component;
 
 @Component

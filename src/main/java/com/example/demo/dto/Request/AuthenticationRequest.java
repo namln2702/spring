@@ -1,4 +1,4 @@
-package com.example.demo.DTO.Request;
+package com.example.demo.dto.Request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

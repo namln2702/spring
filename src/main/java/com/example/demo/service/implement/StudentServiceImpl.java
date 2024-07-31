@@ -1,21 +1,19 @@
-package com.example.demo.Service.Implement;
+package com.example.demo.service.implement;
 
-import com.example.demo.DTO.Request.StudentRequest;
-import com.example.demo.DTO.Response.StudentResponse;
-import com.example.demo.Mapper.StudentMapper;
-import com.example.demo.Mapper.StudentResponseMapper;
-import com.example.demo.Model.Student;
-import com.example.demo.Payload.ResponseData;
-import com.example.demo.Repository.StudentRepository;
-import com.example.demo.Service.StudentService;
+import com.example.demo.dto.Request.StudentRequest;
+import com.example.demo.dto.Response.StudentResponse;
+import com.example.demo.mapper.StudentMapper;
+import com.example.demo.mapper.StudentResponseMapper;
+import com.example.demo.model.Student;
+import com.example.demo.dataresponse.ResponseData;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.*;
 
