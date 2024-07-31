@@ -1,4 +1,4 @@
-package com.example.demo.mapper.mapperImp;
+package com.example.demo.mapper.mapperimp;
 
 import com.example.demo.dto.response.StudentResponse;
 import com.example.demo.mapper.StudentResponseMapper;
