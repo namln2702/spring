@@ -1,6 +1,6 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.Response.StudentResponse;
+import com.example.demo.dto.response.StudentResponse;
 import com.example.demo.model.Student;
 
 

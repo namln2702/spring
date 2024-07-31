@@ -1,6 +1,6 @@
 package com.example.demo.service.implement;
 
-import com.example.demo.dto.Request.AuthenticationRequest;
+import com.example.demo.dto.request.AuthenticationRequest;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.AuthenticationService;

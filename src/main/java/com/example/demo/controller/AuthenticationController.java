@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.Request.AuthenticationRequest;
+import com.example.demo.dto.request.AuthenticationRequest;
 import com.example.demo.service.implement.AuthenticationServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
