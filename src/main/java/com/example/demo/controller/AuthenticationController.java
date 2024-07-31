@@ -7,10 +7,7 @@ import com.example.demo.DTO.response.IntrospectResponse;
 import com.example.demo.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/authentication")
@@ -21,12 +18,12 @@ public class AuthenticationController {
     @Qualifier("authenticationServiceImp")
     AuthenticationService authenticationService;
 
-    @GetMapping(path = "/createToken")
+    @PostMapping (path = "/createToken")
     public AuthenticationResponse authenticationResponse(@RequestBody AuthenticationRequest authenticationRequest){
        return authenticationService.createToken(authenticationRequest);
     }
 
-    @GetMapping(path  ="/checkToken")
+    @PostMapping(path  ="/checkToken")
     public IntrospectResponse introspectResponse(@RequestBody IntrospectRequest introspectRequest){
         return authenticationService.checkToken(introspectRequest);
     }
