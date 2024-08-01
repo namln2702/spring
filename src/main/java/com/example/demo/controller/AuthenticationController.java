@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.DTO.request.AuthenticationRequest;
-import com.example.demo.DTO.request.IntrospectRequest;
-import com.example.demo.DTO.response.AuthenticationResponse;
-import com.example.demo.DTO.response.IntrospectResponse;
+import com.example.demo.dto.request.AuthenticationRequest;
+import com.example.demo.dto.request.IntrospectRequest;
+import com.example.demo.dto.response.AuthenticationResponse;
+import com.example.demo.dto.response.IntrospectResponse;
 import com.example.demo.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

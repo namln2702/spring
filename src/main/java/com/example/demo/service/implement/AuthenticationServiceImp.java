@@ -1,12 +1,10 @@
 package com.example.demo.service.implement;
 
-import ch.qos.logback.core.spi.ErrorCodes;
-import com.example.demo.DTO.request.AuthenticationRequest;
-import com.example.demo.DTO.request.IntrospectRequest;
-import com.example.demo.DTO.response.AuthenticationResponse;
-import com.example.demo.DTO.response.IntrospectResponse;
-import com.example.demo.Model.Student;
-import com.example.demo.Payload.ResponseData;
+import com.example.demo.dto.request.AuthenticationRequest;
+import com.example.demo.dto.request.IntrospectRequest;
+import com.example.demo.dto.response.AuthenticationResponse;
+import com.example.demo.dto.response.IntrospectResponse;
+import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.AuthenticationService;
 import com.nimbusds.jose.*;
@@ -18,12 +16,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContextException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;

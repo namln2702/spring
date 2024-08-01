@@ -1,4 +1,4 @@
-package com.example.demo.DTO.request;
+package com.example.demo.dto.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
 
-public class AuthenticationRequest {
-    String username;
-    String password;
+public class IntrospectRequest {
+    String token;
 }

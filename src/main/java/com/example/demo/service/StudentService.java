@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.DTO.request.StudentRequest;
+import com.example.demo.dto.request.StudentRequest;
 import org.springframework.http.ResponseEntity;
 
 
