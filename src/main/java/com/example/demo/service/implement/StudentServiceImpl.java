@@ -11,6 +11,7 @@ import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,9 @@ public class StudentServiceImpl implements StudentService {
     PasswordEncoder passwordEncoder;
 
 
+
     @Override
-    public ResponseEntity<?> getStudentService() {
+    public ResponseEntity<?> getStudentsService() {
         List<StudentResponse> save = new ArrayList<>();
         ResponseData responseData = new ResponseData();
 
@@ -52,6 +54,23 @@ public class StudentServiceImpl implements StudentService {
         responseData.setStatus(HttpStatus.OK.value());
         responseData.setMessage("Print Student");
         return ResponseEntity.ok().body(responseData);
+    }
+
+    @Override
+    public ResponseEntity<?> getStudentService(String username){
+        Optional<Student> student = studentRepository.findByUsername(username);
+        ResponseData responseData = new ResponseData();
+
+        if (student.isPresent() && !student.get().isDeleted()){
+            responseData.setStatus(HttpStatus.OK.value());
+            responseData.setMessage("Information for username: " + username);
+            responseData.setData(studentResponseMapper.toStudenReponse(student.get()));
+            return ResponseEntity.ok().body(responseData);
+        }
+
+        responseData.setStatus(HttpStatus.BAD_REQUEST.value());
+        responseData.setMessage("User not found");
+        return ResponseEntity.badRequest().body(responseData);
     }
 
     @Override

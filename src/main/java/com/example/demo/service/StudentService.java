@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 
 public interface StudentService {
-    public ResponseEntity<?> getStudentService();
+    public ResponseEntity<?> getStudentsService();
+    public ResponseEntity<?> getStudentService(String username);
+
 
     public ResponseEntity<?> postStudentService(StudentRequest studentRequest);
 

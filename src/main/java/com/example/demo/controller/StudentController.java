@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +23,27 @@ public class StudentController {
     @Qualifier("studentServiceImpl")
     private StudentService studentService;
 
+
+
+
+    // block before called
+    @PreAuthorize("hasAuthority('SCOPE_admin')")
     @GetMapping(path="/students")
-    public ResponseEntity<?> getStudentController(){
+    public ResponseEntity<?> getStudentsController(){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
         log.info("{username : {}", authentication.getAuthorities());
 
-        return studentService.getStudentService();
+        return studentService.getStudentsService();
 
+    }
+
+
+    //Block after called
+    @PostAuthorize("returnObject.getBody().data.username == authentication.name")
+    @GetMapping(path = "/student")
+    public ResponseEntity<?> getStudentController(@RequestParam String username){
+        return studentService.getStudentService(username);
     }
 
 
@@ -51,6 +66,7 @@ public class StudentController {
         return studentService.putStudentService(studentRequest);
 
     }
+
 
 
 }
