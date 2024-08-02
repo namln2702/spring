@@ -30,6 +30,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @Override
     public ResponseEntity<?> getStudentService() {
@@ -64,7 +67,6 @@ public class StudentServiceImpl implements StudentService {
             return ResponseEntity.badRequest().body(responseData);
         }
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         student.setPassword(passwordEncoder.encode(student.getPassword()));
 
         studentRepository.save(student);

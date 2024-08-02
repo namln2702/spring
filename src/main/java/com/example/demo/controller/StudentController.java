@@ -4,12 +4,15 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.request.StudentRequest;
 import com.example.demo.service.StudentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping()
 public class StudentController {
@@ -20,6 +23,10 @@ public class StudentController {
 
     @GetMapping(path="/students")
     public ResponseEntity<?> getStudentController(){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        log.info("{username : {}", authentication.getAuthorities());
+
         return studentService.getStudentService();
 
     }

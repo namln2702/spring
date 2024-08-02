@@ -32,6 +32,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     @Autowired
     StudentRepository studentRepository;
 
+
     @NonFinal
     @Value("${jwt.singerkey}")
     protected String SIGNER_KEY;
@@ -48,8 +49,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
             var check = signedJWT.verify(verifier);
 
             Date expityTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+            Object role = signedJWT.getJWTClaimsSet().getClaim("scope");
 
-            return new IntrospectResponse(check && expityTime.after(new Date()));
+
+            return new IntrospectResponse(check && expityTime.after(new Date()), role);
 
 
         }
@@ -74,13 +77,16 @@ public class AuthenticationServiceImp implements AuthenticationService {
             }
 
         }
+        else {
+            throw new RuntimeException("UserName not found");
+        }
 
-        var token = generateToken(request.getUsername());
+        var token = generateToken(request.getUsername(), student.get().getRole());
 
         return new AuthenticationResponse(token, true);
 
     }
-    private String generateToken(String username){
+    private String generateToken(String username, String role){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
@@ -90,7 +96,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("customeClaim", "Custom")
+                .claim("scope", role)
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());

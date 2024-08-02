@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 public class StudentMapperImp implements StudentMapper {
 
+
+
     @Override
     public Student toStudent(StudentRequest studentRequest) {
         Student student = new Student();
@@ -21,6 +23,7 @@ public class StudentMapperImp implements StudentMapper {
         student.setPassword(studentRequest.getPassword());
         student.setUsername(studentRequest.getUsername());
         student.setEmail(studentRequest.getEmail());
+        student.setRole(studentRequest.getRole());
 
         return student;
 

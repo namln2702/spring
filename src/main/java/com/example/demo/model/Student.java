@@ -1,15 +1,16 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "student")
@@ -33,5 +34,9 @@ public class Student {
 
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
+
+
+    @Column(name = "role")
+    private String role ;
 
 }

@@ -16,9 +16,9 @@ public class StudentResponseMapperImp implements StudentResponseMapper {
         }
 
         studentResponse.setName(student.getName());
-        studentResponse.setPassword(student.getPassword());
         studentResponse.setUsername(student.getUsername());
         studentResponse.setEmail(student.getEmail());
+        studentResponse.setRole(student.getRole());
 
         return studentResponse;
     }
