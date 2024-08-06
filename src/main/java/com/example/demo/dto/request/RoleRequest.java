@@ -1,8 +1,8 @@
 package com.example.demo.dto.request;
 
-import com.example.demo.validator.DobConstraint;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import java.util.List;
 
 @Data
@@ -11,13 +11,9 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class StudentRequest {
-    String name;
-    String email;
-    String username;
-    String password;
 
-    @DobConstraint(min = 18 )
-    Integer age;
-    List<String> roles;
+public class RoleRequest {
+    String name;
+    String description;
+    List<String> permissions;
 }

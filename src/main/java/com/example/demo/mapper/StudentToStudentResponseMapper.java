@@ -4,6 +4,6 @@ import com.example.demo.dto.response.StudentResponse;
 import com.example.demo.model.Student;
 
 
-public interface StudentResponseMapper {
+public interface StudentToStudentResponseMapper {
     StudentResponse toStudenReponse(Student student);
 }

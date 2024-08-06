@@ -1,10 +1,7 @@
 package com.example.demo.dto.response;
 
-import com.example.demo.model.Role;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import java.util.Set;
-
 
 @Data
 @NoArgsConstructor
@@ -12,10 +9,8 @@ import java.util.Set;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class StudentResponse {
-    String email;
+
+public class PermissionResponse {
     String name;
-    String username;
-    Integer age;
-    Set<Role> roles;
+    String description;
 }

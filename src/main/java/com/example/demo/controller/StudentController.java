@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping()
+@RequestMapping(path = "/student")
 public class StudentController {
 
     @Autowired
@@ -27,8 +27,8 @@ public class StudentController {
 
 
     // block before called
-    @PreAuthorize("hasAuthority('SCOPE_admin')")
-    @GetMapping(path="/students")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @GetMapping(path = "/students")
     public ResponseEntity<?> getStudentsController(){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -47,21 +47,20 @@ public class StudentController {
     }
 
 
-    @PostMapping(path="/student")
-    public ResponseEntity<?> postStudentController(@Validated @RequestBody StudentRequest studentRequest){
-
+    @PostMapping
+    public ResponseEntity<?> postStudentController(@RequestBody StudentRequest studentRequest){
         return studentService.postStudentService(studentRequest);
 
     }
 
-    @DeleteMapping(path="/student")
+    @DeleteMapping
     public ResponseEntity<?> deleteStudentController(@RequestParam String username){
 
         return studentService.deleteStudentService(username);
 
     }
 
-    @PutMapping(path="/student")
+    @PutMapping
     public ResponseEntity<?> putStudentController(@RequestBody StudentRequest studentRequest){
         return studentService.putStudentService(studentRequest);
 

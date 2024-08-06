@@ -26,7 +26,7 @@ public class SecurityConfig {
     @Value("${jwt.singerkey}")
     private String SINGERKEY ;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/student","/authentication/createToken" ,"/authentication/checkToken"};
+    private final String[] PUBLIC_ENDPOINTS = {"/student","/authentication/createToken" ,"/authentication/checkToken","/permission"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -38,6 +38,8 @@ public class SecurityConfig {
 
         http.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder()))
+                //TODO catch exception on filter (unfinished)
+                // .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 );
 
         http.csrf(AbstractHttpConfigurer::disable);

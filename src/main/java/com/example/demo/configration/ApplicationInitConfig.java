@@ -21,12 +21,10 @@ public class ApplicationInitConfig {
     ApplicationRunner applicationRunner(StudentRepository studentRepository){
         return args ->{
             if (studentRepository.findByUsername("admin").isEmpty()){
-                String role = "admin";
 
                 Student student = Student.builder()
-                        .username("admin")
-                        .role("admin")
-                        .password(passwordEncoder.encode("admin"))
+                        .username("ADMIN")
+                        .password(passwordEncoder.encode("ADMIN"))
                         .build();
 
                 studentRepository.save(student);

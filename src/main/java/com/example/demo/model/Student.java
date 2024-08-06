@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
+import com.example.demo.validator.DobConstraint;
 import jakarta.persistence.*;
 import lombok.*;
 
-
+import java.util.Set;
 
 
 @Getter
@@ -20,23 +21,21 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "email", nullable = true)
     private String email;
 
-    @Column(name = "name", nullable = true)
     private String name;
 
-    @Column(name = "username", nullable = true)
     private String username;
 
-    @Column(name = "password", nullable = true)
     private String password;
 
-    @Column(name = "is_deleted")
+
     private boolean isDeleted = false;
 
 
-    @Column(name = "role")
-    private String role ;
+    private int age;
+    @ManyToMany
+    public  Set<Role> roles;
+
 
 }

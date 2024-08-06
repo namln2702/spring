@@ -4,6 +4,7 @@ import com.example.demo.dto.request.AuthenticationRequest;
 import com.example.demo.dto.request.IntrospectRequest;
 import com.example.demo.dto.response.AuthenticationResponse;
 import com.example.demo.dto.response.IntrospectResponse;
+import com.example.demo.model.Role;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.AuthenticationService;
@@ -22,8 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 
 @RequiredArgsConstructor
@@ -81,12 +81,21 @@ public class AuthenticationServiceImp implements AuthenticationService {
             throw new RuntimeException("UserName not found");
         }
 
-        var token = generateToken(request.getUsername(), student.get().getRole());
+
+        Set<Role> saveRole = student.get().getRoles();
+
+        List<String> nameRole = new ArrayList<>();
+
+        for (Role pos : saveRole){
+            nameRole.add(pos.getName());
+        }
+        // TODO not fix Role
+        var token = generateToken(request.getUsername(), nameRole);
 
         return new AuthenticationResponse(token, true);
 
     }
-    private String generateToken(String username, String role){
+    private String generateToken(String username, List<String> roles){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
@@ -96,7 +105,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("scope", role)
+                .claim("scope", roles)
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -108,7 +117,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
             return jwsObject.serialize();
         }catch (Exception e){
-            throw new RuntimeException("Cannot create tokenl");
+            throw new RuntimeException("Cannot create token");
         }
 
 

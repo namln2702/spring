@@ -1,13 +1,16 @@
 package com.example.demo.mapper.mapperImp;
 
 import com.example.demo.dto.request.StudentRequest;
-import com.example.demo.mapper.StudentMapper;
+import com.example.demo.mapper.StudentRequestToStudentMapper;
 import com.example.demo.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
 
 @Component
 
-public class StudentMapperImp implements StudentMapper {
+public class StudentRequestToStudentMapperImp implements StudentRequestToStudentMapper {
 
 
 
@@ -23,7 +26,7 @@ public class StudentMapperImp implements StudentMapper {
         student.setPassword(studentRequest.getPassword());
         student.setUsername(studentRequest.getUsername());
         student.setEmail(studentRequest.getEmail());
-        student.setRole(studentRequest.getRole());
+        student.setAge(studentRequest.getAge());
 
         return student;
 

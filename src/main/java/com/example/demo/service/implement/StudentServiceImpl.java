@@ -2,19 +2,20 @@ package com.example.demo.service.implement;
 
 import com.example.demo.dto.request.StudentRequest;
 import com.example.demo.dto.response.StudentResponse;
-import com.example.demo.mapper.StudentMapper;
-import com.example.demo.mapper.StudentResponseMapper;
+import com.example.demo.mapper.StudentRequestToStudentMapper;
+import com.example.demo.mapper.StudentToStudentResponseMapper;
 import com.example.demo.model.Student;
 import com.example.demo.payload.ResponseData;
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -25,14 +26,19 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private StudentResponseMapper studentResponseMapper;
 
     @Autowired
-    private StudentMapper studentMapper;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private StudentToStudentResponseMapper studentToStudentResponseMapper;
+
+    @Autowired
+    private StudentRequestToStudentMapper studentMapper;
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
 
 
 
@@ -42,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
         ResponseData responseData = new ResponseData();
 
         for (Student pos : studentRepository.findAll()){
-            if (!pos.isDeleted()) save.add(studentResponseMapper.toStudenReponse(pos));
+            if (!pos.isDeleted()) save.add(studentToStudentResponseMapper.toStudenReponse(pos));
         }
 
         responseData.setData(save);
@@ -56,6 +62,8 @@ public class StudentServiceImpl implements StudentService {
         return ResponseEntity.ok().body(responseData);
     }
 
+
+
     @Override
     public ResponseEntity<?> getStudentService(String username){
         Optional<Student> student = studentRepository.findByUsername(username);
@@ -64,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
         if (student.isPresent() && !student.get().isDeleted()){
             responseData.setStatus(HttpStatus.OK.value());
             responseData.setMessage("Information for username: " + username);
-            responseData.setData(studentResponseMapper.toStudenReponse(student.get()));
+            responseData.setData(studentToStudentResponseMapper.toStudenReponse(student.get()));
             return ResponseEntity.ok().body(responseData);
         }
 
@@ -73,10 +81,12 @@ public class StudentServiceImpl implements StudentService {
         return ResponseEntity.badRequest().body(responseData);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<?> postStudentService(StudentRequest studentRequest) {
         ResponseData responseData = new ResponseData();
         Student student = studentMapper.toStudent(studentRequest);
+        student.setRoles(new HashSet<>(roleRepository.findAllById(studentRequest.getRoles())));
 
         String test = student.getUsername();
         Optional<Student> pos = studentRepository.findByUsername(test);
@@ -87,11 +97,13 @@ public class StudentServiceImpl implements StudentService {
         }
 
         student.setPassword(passwordEncoder.encode(student.getPassword()));
+        student.setRoles(new HashSet<>(roleRepository.findAllById(studentRequest.getRoles())));
 
         studentRepository.save(student);
 
+
         responseData.setStatus(200);
-        responseData.setData(studentResponseMapper.toStudenReponse(student));
+        responseData.setData(studentToStudentResponseMapper.toStudenReponse(student));
         responseData.setMessage("Successfully");
         return ResponseEntity.ok().body(responseData);
     }
@@ -109,7 +121,7 @@ public class StudentServiceImpl implements StudentService {
 
             responseData.setStatus(200);
             responseData.setMessage("Delete Successfully");
-            responseData.setData(studentResponseMapper.toStudenReponse(studentDel));
+            responseData.setData(studentToStudentResponseMapper.toStudenReponse(studentDel));
 
             return ResponseEntity.ok().body(responseData);
         }
@@ -136,11 +148,12 @@ public class StudentServiceImpl implements StudentService {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
             student.setPassword(passwordEncoder.encode(student.getPassword()));
 
+            student.setRoles(new HashSet<>(roleRepository.findAllById(studentRequest.getRoles())));
             studentRepository.save(student);
 
             responseData.setStatus(200);
             responseData.setMessage("Update SuccessFully");
-            responseData.setData(studentResponseMapper.toStudenReponse(student));
+            responseData.setData(studentToStudentResponseMapper.toStudenReponse(student));
 
             return ResponseEntity.ok().body(responseData);
         }

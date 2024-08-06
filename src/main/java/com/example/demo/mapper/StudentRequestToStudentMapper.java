@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public interface StudentMapper {
+public interface StudentRequestToStudentMapper {
     Student toStudent(StudentRequest studentRequest);
 
 }
